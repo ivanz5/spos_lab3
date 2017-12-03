@@ -1,0 +1,7 @@
+Scheduling Type: Interactive
+Scheduling Name: Shortest Process Next
+Simulation Run Time: 91
+Process #	CPU Time	CPU Completed	Bursts count
+0		1000 (ms)	1000 (ms)	14
+1		2000 (ms)	2000 (ms)	38
+2		3000 (ms)	3000 (ms)	37
