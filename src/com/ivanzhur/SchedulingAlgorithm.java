@@ -11,9 +11,10 @@ public class SchedulingAlgorithm {
 
     private static Random random = new Random();
     private static List<Integer> estimateTime;
-    private static final float a = 0.5f;
+    private static float a = 0.5f;
 
-    public static Results run(int runtime, List<Process> processList, Results result) {
+    public static Results run(int runtime, float aging, List<Process> processList, Results result) {
+        a = aging;
         int compTime = 0;
         int currentProcess = 0;
         int size = processList.size();
@@ -46,7 +47,9 @@ public class SchedulingAlgorithm {
                 else {
                     int currentBurstTime = process.getNextBurstTime(random);
 
-                    out.println("Process: " + currentProcess + " running... (" + process.totalTime + " " + currentBurstTime + " " + process.timeDone + ")");
+                    int estimatedTime = estimateTime.get(currentProcess);
+                    out.println("Process: " + currentProcess + " running... (" + process.totalTime + " " + estimatedTime + " "
+                            + currentBurstTime + " " + process.timeDone + " " + process.burstsCount + ")");
 
                     process.timeDone += currentBurstTime;
                     process.burstsCount++;

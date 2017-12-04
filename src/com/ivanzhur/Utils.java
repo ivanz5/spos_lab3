@@ -12,5 +12,16 @@ public class Utils {
         }
         return i;
     }
+
+    public static float stringToFloat(String s) {
+        float f = 0;
+
+        try {
+            f = Float.parseFloat(s.trim());
+        } catch (NumberFormatException nfe) {
+            System.out.println("NumberFormatException: " + nfe.getMessage());
+        }
+        return f;
+    }
 }
 

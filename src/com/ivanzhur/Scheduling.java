@@ -12,6 +12,7 @@ public class Scheduling {
     private static int runtime = 1000;
     private static List<Process> processVector = new ArrayList<>();
     private static Results result = new Results("null", "null", 0);
+    private static float aging;
 
     private static void init(String filename) {
         File file = new File(filename);
@@ -23,11 +24,12 @@ public class Scheduling {
         try {
             DataInputStream in = new DataInputStream(new FileInputStream(file));
             while ((line = in.readLine()) != null) {
-                if (line.startsWith("numprocess")) {
+                if (line.startsWith("aging")) {
                     StringTokenizer st = new StringTokenizer(line);
                     st.nextToken();
+                    aging = Utils.stringToFloat(st.nextToken());
                 }
-                if (line.startsWith("process")) {
+                else if (line.startsWith("process")) {
                     StringTokenizer st = new StringTokenizer(line);
                     st.nextToken();
                     totalTime = Utils.stringToInt(st.nextToken());
@@ -35,7 +37,7 @@ public class Scheduling {
                     deviation = Utils.stringToInt(st.nextToken());
                     processVector.add(new Process(totalTime, burstTime, deviation));
                 }
-                if (line.startsWith("runtime")) {
+                else if (line.startsWith("runtime")) {
                     StringTokenizer st = new StringTokenizer(line);
                     st.nextToken();
                     runtime = Utils.stringToInt(st.nextToken());
@@ -60,7 +62,7 @@ public class Scheduling {
         System.out.println("Working...");
         init(filename);
 
-        result = SchedulingAlgorithm.run(runtime, processVector, result);
+        result = SchedulingAlgorithm.run(runtime, aging, processVector, result);
 
         try {
             PrintStream out = new PrintStream(new FileOutputStream(resultsFile));
